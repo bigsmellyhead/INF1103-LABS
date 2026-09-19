@@ -18,6 +18,17 @@ def get_valid_input():
 
     return stock_qty
 
+def process_delivery(current_total, new_value):
+    return current_total + new_value
+
+def calculate_tax(amount):
+    return amount * 0.10
+
+def generate_report(total_units, failed_attempts):
+    print("\n--- Audit Report ---")
+    print(f"Total Deliveries Processed: {total_units}")
+    print(f"Number of Failed/Rejected Entries: {failed_attempts}")
+    
 def main():
     inventory_total = 0
     failed_entries = 0
@@ -32,15 +43,19 @@ def main():
             failed_entries += 1
             continue
 
-        inventory_total += result
+        delivery_amount = result
 
-        if inventory_total > 500:
-            print("Overstock Alert: Total inventory exceeds 500 units!")
-            break
+        inventory_total = process_delivery(inventory_total, delivery_amount)
 
-    print("\n--- Audit Report ---")
-    print(f"Total Units Processed: {inventory_total}")
-    print(f"Number of Failed/Rejected Entries: {failed_entries}")
+        # Commented out // Unsure if 500 stock limit still applies for this Lab?
+        # if inventory_total > 500:
+            # print("Overstock Alert: Total inventory exceeds 500 units!")
+            # break
+
+        tax = calculate_tax(delivery_amount)
+        print(f"Delivery processed successfully. Tax for this delivery: {tax:.2f}")
+
+    generate_report(inventory_total, failed_entries)
 
 if __name__ == "__main__":
     main()
