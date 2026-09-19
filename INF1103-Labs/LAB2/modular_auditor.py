@@ -1,0 +1,46 @@
+# modular_auditor.py
+
+def get_valid_input():
+    user_input = input("Enter stock quantity (or type 'quit'): ")
+
+    if user_input.lower() == "quit":
+        return "quit"
+        
+    try:
+        stock_qty = int(user_input)
+    except ValueError:
+        print("Error: Invalid input. Please enter a valid integer.")
+        return None
+    
+    if stock_qty < 0:
+        print("Error: Negative numbers are not allowed.")
+        return None
+
+    return stock_qty
+
+def main():
+    inventory_total = 0
+    failed_entries = 0
+
+    while True:
+        result = get_valid_input()
+
+        if result == "quit":
+            break
+
+        elif result is None:
+            failed_entries += 1
+            continue
+
+        inventory_total += result
+
+        if inventory_total > 500:
+            print("Overstock Alert: Total inventory exceeds 500 units!")
+            break
+
+    print("\n--- Audit Report ---")
+    print(f"Total Units Processed: {inventory_total}")
+    print(f"Number of Failed/Rejected Entries: {failed_entries}")
+
+if __name__ == "__main__":
+    main()
