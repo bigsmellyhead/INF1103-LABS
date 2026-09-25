@@ -37,7 +37,7 @@ def get_valid_input():
     product_name = input("Enter Product Name: ").strip()
     if product_name.lower() == "quit":
         return "quit", None
-            
+
     if not product_name:
         print("Error: Product name cannot be empty.")
         return None, None
@@ -45,21 +45,21 @@ def get_valid_input():
     if not any(char.isalpha() for char in product_name):
         print("Error: Product name must contain at least some letters (e.g., cannot be just numbers).")
         return None, None
-    
+
     user_input = input("Enter stock quantity (or type 'quit'): ")
 
     if user_input.lower() == "quit":
-        return "quit"
-        
+        return "quit", None
+
     try:
         stock_qty = int(user_input)
     except ValueError:
         print("Error: Invalid input. Please enter a valid integer.")
-        return None
-    
+        return None, None  
+
     if stock_qty < 0:
         print("Error: Negative numbers are not allowed.")
-        return None
+        return None, None  
 
     return product_name, stock_qty
 
