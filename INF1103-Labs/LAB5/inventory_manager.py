@@ -16,3 +16,36 @@ def load_inventory():
 
     # Begin with an empty inventory if file does not exist
     return []
+
+def display_all(inventory):
+    """Display all products currently in the inventory."""
+    print("\nCurrent Inventory")
+    for item in inventory:
+        print(f"ID: {item['id']} | Name: {item['name']} | Price: ${item['price']:.2f} | Stock: {item['stock']}")
+
+def add_product(inventory):
+    """Add a new product dictionary to the inventory list."""
+    print("\nAdd New Product")
+    prod_id = input("Product ID: ").strip()
+
+    for item in inventory:
+        if item['id'].lower() == prod_id.lower():
+            print("Error: Product ID already exists!")
+            return
+
+    name = input("Product Name: ").strip()
+    try:
+        price = float(input("Price: "))
+        stock = int(input("Stock Quantity: "))
+    except ValueError:
+        print("Invalid input for price or stock.")
+        return
+
+    new_product = {
+        "id": prod_id,
+        "name": name,
+        "price": price,
+        "stock": stock
+    }
+    inventory.append(new_product)
+    print("Product added successfully!")
