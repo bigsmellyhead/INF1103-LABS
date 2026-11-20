@@ -6,6 +6,7 @@ from digital_product import DigitalProduct
 from inventory import Inventory
 from supplier import Supplier
 from product_factory import ProductFactory
+from product_loader import load_products
 from input_helpers import get_positive_float
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -190,6 +191,7 @@ def main():
         print("4. Search Product")
         print("5. Save Inventory")
         print("6. Exit")
+        print("7. Load Products from CSV")
 
         choice = input("\nEnter option: ").strip()
 
@@ -208,8 +210,10 @@ def main():
             print("\nThank you for using Inventory Management System.")
             print("Program terminated.")
             break
+        elif choice == "7":
+            load_products("products.csv", inventory, SUPPLIERS["S001"])
         else:
-            print("\nInvalid option. Please choose between 1 and 6.")
+            print("\nInvalid option. Please choose between 1 and 7.")
 
 if __name__ == "__main__":
     main()
